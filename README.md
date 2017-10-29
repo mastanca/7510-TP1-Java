@@ -3,5 +3,5 @@ TP de Tecnicas de Diseño FIUBA
 
 
 ## Run tests
-mvn clean compile test
+gradle test
 
