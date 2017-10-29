@@ -1,28 +1,26 @@
 codecov:
   notify:
     require_ci_to_pass: yes
-    after_n_builds: 1  # how many uploads per commit
+    after_n_builds: 1
     wait_for_ci: no
-  branch: develop
-
 coverage:
   status:
-    patch: # minimum coverage needed based only on the new code introduced on the PR
+    patch:
       default: off
       pr_coverage:
         target: 75%
     project:
       default: off
-      minimum: # minimum target of coverage needed to pass the check
+      minimum:
         target: 75%
-      decrement: # maximum decrement of coverage allowed
+      decrement:
         target: auto
         threshold: 0.5%
         if_not_found: success
-comment: # configuration of the details the bot will comment on the PR
-  layout: "diff, flags"
+comment:
+  layout: 'diff, flags'
   behavior: default
-  require_changes: false  # if true: only post the comment if coverage changes
-  require_base: no        # [yes :: must have a base report to post]
-  require_head: no       # [yes :: must have a head report to post]
+  require_changes: false
+  require_base: no
+  require_head: no
   branches: null
