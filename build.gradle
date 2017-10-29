@@ -1,18 +1,24 @@
 apply plugin: 'java'
 apply plugin: 'maven'
+apply plugin: 'jacoco'
 
 group = 'ar.uba.fi.tdd'
 version = '0.0.1-SNAPSHOT'
 
 description = """rulogic"""
 
-sourceCompatibility = 1.5
-targetCompatibility = 1.5
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
 tasks.withType(JavaCompile) {
 	options.encoding = 'UTF-8'
 }
 
-
+jacocoTestReport {
+    reports {
+        xml.enabled = true
+        html.enabled = true
+    }
+}
 
 repositories {
         
