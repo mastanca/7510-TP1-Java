@@ -40,3 +40,6 @@ jobs:
         
       # run tests!
       - run: gradle test
+
+      # Post to codecov
+      - run: bash <(curl -s https://codecov.io/bash) -t $CODECOV_REPO_TOKEN
