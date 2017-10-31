@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
@@ -21,7 +20,7 @@ public class DBLoader {
         Supplier<Stream<String>> dataSupplier = () -> {
             try {
                 return Files.lines(Paths.get(ClassLoader.getSystemClassLoader()
-                        .getResource(filename).toURI()));
+                        .getResource(filename).toURI())).map(Normalizer::normalize);
             } catch (IOException e) {
                 e.printStackTrace();
             } catch (URISyntaxException e) {
@@ -39,16 +38,5 @@ public class DBLoader {
 
     public List getRules() {
         return rules;
-    }
-
-    public String normalize(String line) {
-        return line.replaceAll("\\s\\(\\s", "(").
-                replaceAll("\\s\\)\\s", ")").
-                replaceAll("\\)\\s*\\.$", "\\)\\.").
-                replaceAll("\\t", " ").
-                replaceAll("[,!?;]", "$0 ").replaceAll("\\s+", " ").
-                replaceAll("\\):", "\\) :").
-                trim().
-                replaceAll("\\.$", "");
     }
 }

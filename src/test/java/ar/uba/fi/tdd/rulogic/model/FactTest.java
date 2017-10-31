@@ -11,7 +11,7 @@ public class FactTest {
     public void testFactCreation() {
         Fact fact = new Fact("varon(juan)");
         Assert.assertEquals(fact.getName(), "varon");
-        List<String> statements = new ArrayList <>();
+        List<String> statements = new ArrayList<>();
         statements.add("juan");
         Assert.assertTrue(fact.getStatements().equals(statements));
     }
