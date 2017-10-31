@@ -20,7 +20,7 @@ public class DBLoader {
         Stream<String> data = Files.lines(Paths.get(ClassLoader.getSystemClassLoader()
                 .getResource(filename).toURI()));
         this.facts = data.filter(str -> !str.contains(":-")).map(Fact::new).collect(Collectors.toList());
-        this.rules = new ArrayList<Rule>();
+        this.rules = data.filter(str -> str.contains(":-")).map(Rule::new).collect(Collectors.toList());
     }
 
     public List getFacts() {
