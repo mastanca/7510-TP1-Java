@@ -3,20 +3,15 @@ package ar.uba.fi.tdd.rulogic.model;
 import java.util.Arrays;
 import java.util.List;
 
-public class Fact {
-    private String name;
+public class Fact extends AbstractFact {
     private List statements;
 
     public Fact(String stringFact) {
-        this.name = stringFact.replaceAll("\\(.*$", "");
+        super(stringFact);
         this.statements = Arrays.asList(stringFact.
                 replaceAll("^.*\\(", "").
                 replaceAll("\\)$", "").
                 split(", "));
-    }
-
-    public String getName() {
-        return name;
     }
 
     public List getStatements() {
@@ -27,17 +22,17 @@ public class Fact {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
 
         Fact fact = (Fact) o;
 
-        if (!getName().equals(fact.getName())) return false;
-        return getStatements().equals(fact.getStatements());
+        return getStatements() != null ? getStatements().equals(fact.getStatements()) : fact.getStatements() == null;
     }
 
     @Override
     public int hashCode() {
-        int result = getName().hashCode();
-        result = 31 * result + getStatements().hashCode();
+        int result = super.hashCode();
+        result = 31 * result + (getStatements() != null ? getStatements().hashCode() : 0);
         return result;
     }
 }

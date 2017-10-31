@@ -9,9 +9,9 @@ import java.util.List;
 public class FactTest {
     @Test
     public void testFactCreation() {
-        Fact fact = new Fact("varon(juan).");
+        Fact fact = new Fact("varon(juan)");
         Assert.assertEquals(fact.getName(), "varon");
-        List statements = new ArrayList <String>();
+        List<String> statements = new ArrayList <>();
         statements.add("juan");
         Assert.assertTrue(fact.getStatements().equals(statements));
     }

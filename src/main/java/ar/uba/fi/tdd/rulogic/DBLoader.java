@@ -9,6 +9,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -17,10 +18,19 @@ public class DBLoader {
     private List rules;
 
     public DBLoader(String filename) throws IOException, URISyntaxException {
-        Stream<String> data = Files.lines(Paths.get(ClassLoader.getSystemClassLoader()
-                .getResource(filename).toURI()));
-        this.facts = data.filter(str -> !str.contains(":-")).map(Fact::new).collect(Collectors.toList());
-        this.rules = data.filter(str -> str.contains(":-")).map(Rule::new).collect(Collectors.toList());
+        Supplier<Stream<String>> dataSupplier = () -> {
+            try {
+                return Files.lines(Paths.get(ClassLoader.getSystemClassLoader()
+                        .getResource(filename).toURI()));
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (URISyntaxException e) {
+                e.printStackTrace();
+            }
+            return null;
+        };
+        this.facts = dataSupplier.get().filter(str -> !str.contains(":-")).map(Fact::new).collect(Collectors.toList());
+        this.rules = dataSupplier.get().filter(str -> str.contains(":-")).map(Rule::new).collect(Collectors.toList());
     }
 
     public List getFacts() {

@@ -5,13 +5,12 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class Rule {
-    private String name;
+public class Rule extends AbstractFact {
     private List<String> variables;
     private List unreplacedFacts;
 
     public Rule(String rule) {
-        this.name = rule.replaceAll("\\(.*$", "");
+        super(rule);
         this.variables = Arrays.asList(rule.replaceAll("^.*\\(", "").
                 replaceAll("\\).*", "").
                 split(", "));
@@ -19,10 +18,6 @@ public class Rule {
         this.unreplacedFacts = Arrays.stream(rule.replaceAll("^.*:- ", "").
                 replaceAll("\\), ", ");").split(";")).
                 map(Fact::new).collect(Collectors.toList());
-    }
-
-    public String getName() {
-        return name;
     }
 
     public List<String> getVariables() {
