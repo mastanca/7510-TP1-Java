@@ -17,7 +17,6 @@ public class DBLoader {
     private List rules;
 
     public DBLoader(String filename) throws IOException, URISyntaxException {
-        ClassLoader classLoader = getClass().getClassLoader();
         Stream<String> data = Files.lines(Paths.get(ClassLoader.getSystemClassLoader()
                 .getResource(filename).toURI()));
         this.facts = data.filter(str -> !str.contains(":-")).map(Fact::new).collect(Collectors.toList());
@@ -38,7 +37,8 @@ public class DBLoader {
                 replaceAll("\\)\\s*\\.$", "\\)\\.").
                 replaceAll("\\t", " ").
                 replaceAll("[,!?;]", "$0 ").replaceAll("\\s+", " ").
-                replaceAll("\\):", "\\) :")
-                .trim();
+                replaceAll("\\):", "\\) :").
+                trim().
+                replaceAll("\\.$", "");
     }
 }

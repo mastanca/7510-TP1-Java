@@ -19,10 +19,10 @@ public class DBLoaderTest {
     @Test
     public void testNormalizeDatabase() {
         String str1 = "varon ( nicolas ) .";
-        Assert.assertEquals("varon(nicolas).", dbLoader.normalize(str1));
+        Assert.assertEquals("varon(nicolas)", dbLoader.normalize(str1));
         String str2 = "mujer(maria) .";
-        Assert.assertEquals("mujer(maria).", dbLoader.normalize(str2));
+        Assert.assertEquals("mujer(maria)", dbLoader.normalize(str2));
         String str3 = "tio(X, Y, Z):- varon(X),\thermano(X, Z),padre(Z, Y).\n";
-        Assert.assertEquals("tio(X, Y, Z) :- varon(X), hermano(X, Z), padre(Z, Y).", dbLoader.normalize(str3));
+        Assert.assertEquals("tio(X, Y, Z) :- varon(X), hermano(X, Z), padre(Z, Y)", dbLoader.normalize(str3));
     }
 }
