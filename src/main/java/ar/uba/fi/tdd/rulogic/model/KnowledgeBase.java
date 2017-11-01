@@ -5,7 +5,10 @@ import ar.uba.fi.tdd.rulogic.Normalizer;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.Collections;
+import java.util.List;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public class KnowledgeBase {
     private DBLoader loader;
@@ -14,13 +17,20 @@ public class KnowledgeBase {
         this.loader = new DBLoader("rules.db");
     }
 
+    @SuppressWarnings("unchecked")
     public boolean answer(String query) {
         query = Normalizer.normalize(query);
         Fact queryFact = new Fact(query);
         if (anyFactMatches(queryFact)) {
             return true;
         } else {
-            return false;
+            Predicate<Rule> matchingNamePredicate = rule -> rule.nameMatches(queryFact);
+            List<Rule> matchingRules = (List<Rule>) loader.getRules().stream().filter(matchingNamePredicate).collect(Collectors.toList())
+            if (matchingRules.isEmpty()) { return false; }
+            Rule matchingNameRule = matchingRules.get(0);
+            List<Fact> replacedFacts = matchingNameRule.getReplacedFacts(queryFact);
+            Predicate<Fact> allFactMatchPredicate = this::anyFactMatches;
+            return replacedFacts.stream().allMatch(allFactMatchPredicate);
         }
     }
 

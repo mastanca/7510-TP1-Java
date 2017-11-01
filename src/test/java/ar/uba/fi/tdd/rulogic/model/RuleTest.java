@@ -20,4 +20,12 @@ public class RuleTest {
         facts.add(new Fact("padre(Y, X)"));
         Assert.assertTrue(rule.getUnreplacedFacts().equals(facts));
     }
+
+    @Test
+    public void testEquals() {
+        Rule rule = new Rule("hijo(X, Y) :- varon(X), padre(Y, X)");
+        Rule rule2 = new Rule("hijo(X, Y) :- varon(X), padre(Y, X)");
+        Assert.assertTrue(rule.equals(rule2));
+        Assert.assertEquals(rule.hashCode(), rule2.hashCode());
+    }
 }

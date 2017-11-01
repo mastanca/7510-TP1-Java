@@ -15,4 +15,12 @@ public class FactTest {
         statements.add("juan");
         Assert.assertTrue(fact.getStatements().equals(statements));
     }
+
+    @Test
+    public void testEquals() {
+        Fact fact = new Fact("varon(juan)");
+        Fact fact2 = new Fact("varon(juan)");
+        Assert.assertTrue(fact.equals(fact2));
+        Assert.assertEquals(fact.hashCode(), fact.hashCode());
+    }
 }
