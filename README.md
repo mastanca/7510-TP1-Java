@@ -3,5 +3,8 @@ TP de Tecnicas de Diseño FIUBA
 
 
 ## Run tests
-gradle test
+./gradlew test
+
+## Coverage reports
+./gradlew test jacocoTestReport
 
