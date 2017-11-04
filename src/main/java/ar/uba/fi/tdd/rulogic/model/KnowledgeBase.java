@@ -5,7 +5,6 @@ import ar.uba.fi.tdd.rulogic.Normalizer;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.util.Collections;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -24,9 +23,11 @@ public class KnowledgeBase {
         if (anyFactMatches(queryFact)) {
             return true;
         } else {
-            Predicate<Rule> matchingNamePredicate = rule -> rule.nameMatches(queryFact);
-            List<Rule> matchingRules = (List<Rule>) loader.getRules().stream().filter(matchingNamePredicate).collect(Collectors.toList())
-            if (matchingRules.isEmpty()) { return false; }
+            Predicate<Rule> matchingNamePredicate = rule -> rule.nameMatches(queryFact.getName());
+            List<Rule> matchingRules = (List<Rule>) loader.getRules().stream().filter(matchingNamePredicate).collect(Collectors.toList());
+            if (matchingRules.isEmpty()) {
+                return false;
+            }
             Rule matchingNameRule = matchingRules.get(0);
             List<Fact> replacedFacts = matchingNameRule.getReplacedFacts(queryFact);
             Predicate<Fact> allFactMatchPredicate = this::anyFactMatches;

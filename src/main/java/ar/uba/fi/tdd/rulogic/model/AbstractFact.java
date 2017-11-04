@@ -4,7 +4,11 @@ public abstract class AbstractFact {
     public String name;
 
     public AbstractFact(String str) {
-        this.name = str.replaceAll("\\(.*$", "");
+        if (str.contains("(")) {
+            this.name = str.replaceAll("\\(.*$", "");
+        } else {
+            this.name = str;
+        }
     }
 
     public String getName() {

@@ -4,7 +4,12 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Fact extends AbstractFact {
-    private List statements;
+    private List<String> statements;
+
+    public Fact(String str, List<String> statements) {
+        super(str);
+        this.statements = statements;
+    }
 
     public Fact(String stringFact) {
         super(stringFact);
@@ -14,7 +19,7 @@ public class Fact extends AbstractFact {
                 split(", "));
     }
 
-    public List getStatements() {
+    public List<String> getStatements() {
         return statements;
     }
 
